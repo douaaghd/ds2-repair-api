@@ -5,6 +5,9 @@ import { UsersModule } from '../users/users.module';
 import { JwtStrategy } from './jwt.strategy';
 import { AuthController } from './auth.controller';
 
+import { RolesGuard } from './roles.guard';
+
+
 @Module({
   imports: [
     forwardRef(() => UsersModule), // <-- pour casser la dépendance circulaire
@@ -13,8 +16,8 @@ import { AuthController } from './auth.controller';
       signOptions: { expiresIn: '1h' },
     }),
   ],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy,RolesGuard],
   controllers: [AuthController],
-  exports: [JwtModule, AuthService], // nexportiw AuthService zeda bech ken sthakineh fi usersModel
+  exports: [JwtModule, AuthService,RolesGuard], // nexportiw AuthService zeda bech ken sthakineh fi usersModel
 })
 export class AuthModule {}
