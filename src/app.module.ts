@@ -2,7 +2,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
-
+import { PartsModule } from './parts/parts.module';
+import { DevicesModule } from './devices/devices.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -17,6 +18,8 @@ import { AuthModule } from './auth/auth.module';
     }),
     UsersModule,
     AuthModule,
+    PartsModule,
+    DevicesModule,
   ],
 })
 export class AppModule {}

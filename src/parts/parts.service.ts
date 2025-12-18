@@ -1,64 +1,51 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { SparePart } from './entities/spare-part.entity';
 import { CreateSparePartDto } from './dto/create-sparepart.dto';
 import { UpdateSparePartDto } from './dto/update-sparepart.dto';
 
-
-export interface SparePart {
-  id: number;
-  name: string;
-  stock: number;
-  price: number;
-}
-
 @Injectable()
 export class PartsService {
-  private parts: SparePart[] = [];
+  constructor(
+    @InjectRepository(SparePart)
+    private readonly sparePartRepository: Repository<SparePart>,
+  ) {}
 
   // GET /parts
-  findAll(): SparePart[] {
-    return this.parts;
+  findAll(): Promise<SparePart[]> {
+    return this.sparePartRepository.find();
   }
 
-  // POST /parts
-  create(createSparePartDto: CreateSparePartDto): SparePart {
-    const part: SparePart = {
-      id: this.parts.length + 1,
-      name: createSparePartDto.name,
-      stock: createSparePartDto.stock,
-      price: createSparePartDto.price,
-    };
-
-    this.parts.push(part);
-    return part;
+  // POST /parts (ADMIN)
+  create(createSparePartDto: CreateSparePartDto): Promise<SparePart> {
+    const part = this.sparePartRepository.create(createSparePartDto);
+    return this.sparePartRepository.save(part);
   }
 
-  // PATCH /parts/:id
-  update(id: number, updateSparePartDto: UpdateSparePartDto): SparePart {
-    const part = this.parts.find((p) => p.id === id);
+  // PATCH /parts/:id (ADMIN)
+  async update(
+    id: number,
+    updateSparePartDto: UpdateSparePartDto,
+  ): Promise<SparePart> {
+    const part = await this.sparePartRepository.findOne({
+      where: { id },
+    });
 
     if (!part) {
       throw new NotFoundException('Spare part not found');
     }
 
-    if (updateSparePartDto.stock !== undefined) {
-      part.stock = updateSparePartDto.stock;
-    }
-
-    if (updateSparePartDto.price !== undefined) {
-      part.price = updateSparePartDto.price;
-    }
-
-    return part;
+    Object.assign(part, updateSparePartDto);
+    return this.sparePartRepository.save(part);
   }
 
-  // DELETE /parts/:id
-  remove(id: number): void {
-    const index = this.parts.findIndex((p) => p.id === id);
+  // DELETE /parts/:id (ADMIN)
+  async remove(id: number): Promise<void> {
+    const result = await this.sparePartRepository.delete(id);
 
-    if (index === -1) {
+    if (result.affected === 0) {
       throw new NotFoundException('Spare part not found');
     }
-
-    this.parts.splice(index, 1);
   }
 }
