@@ -12,18 +12,18 @@ export class PartsService {
     private readonly sparePartRepository: Repository<SparePart>,
   ) {}
 
-  // GET /parts
+  //  Tjib el liste mtaa les pieces lkol (ay wehed mconnecti ynejem ychoufha)
   findAll(): Promise<SparePart[]> {
     return this.sparePartRepository.find();
   }
 
-  // POST /parts (ADMIN)
+  // tasna piece jdida (kekn ADMIN inajem)
   create(createSparePartDto: CreateSparePartDto): Promise<SparePart> {
     const part = this.sparePartRepository.create(createSparePartDto);
     return this.sparePartRepository.save(part);
   }
 
-  // PATCH /parts/:id (ADMIN)
+  // tbadel haja fi part par exemple stock wala prix  (ken ADMIN)
   async update(
     id: number,
     updateSparePartDto: UpdateSparePartDto,
@@ -40,7 +40,7 @@ export class PartsService {
     return this.sparePartRepository.save(part);
   }
 
-  // DELETE /parts/:id (ADMIN)
+  // DELETE (ken ADMIN)
   async remove(id: number): Promise<void> {
     const result = await this.sparePartRepository.delete(id);
 

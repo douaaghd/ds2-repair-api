@@ -11,7 +11,7 @@ export class UsersService {
     @InjectRepository(User)
     private usersRepository: Repository<User>,
   ) {}
-
+  // Tesna3 user jdid w tcrypti password b-bcrypt
   async create(email: string, username: string, password: string) {
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -24,11 +24,11 @@ export class UsersService {
 
     return this.usersRepository.save(user);
   }
-
+ // Tlawaj ala user b email  (mestaamla fel Login)
   async findByEmail(email: string) {
     return this.usersRepository.findOneBy({ email });
   }
-
+// Tlawaj ala user bidou (mesta3mla fel Profile)
   async findById(id: number) {
     return this.usersRepository.findOneBy({ id });
   }

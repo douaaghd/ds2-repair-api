@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-
+// Hedha eltableau elli bech yetssanaa fel-Base de données
 @Entity()
 export class SparePart {
   @PrimaryGeneratedColumn()

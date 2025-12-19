@@ -11,7 +11,7 @@ export class User {
   id: number;
 
   @Column({ unique: true })
-  email: string;
+  email: string; // Email lazem maykounech maawed
 
   @Column()
   username: string;
@@ -20,5 +20,5 @@ export class User {
   password: string;
 
   @Column({ type: 'enum', enum: UserRole, default: UserRole.TECH })
-  role: UserRole;
+  role: UserRole; // Role par défaut Technicien, ken mouch Admin 
 }

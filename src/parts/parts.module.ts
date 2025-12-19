@@ -8,7 +8,7 @@ import { AuthModule } from '../auth/auth.module';
 @Module({
   imports: [
     TypeOrmModule.forFeature([SparePart]),
-    AuthModule, 
+    AuthModule, // Nasta79ou AuthModule bech nastaamlou RolesGuard (bech naarfo chkoun Admin)
   ],
   controllers: [PartsController],
   providers: [PartsService],

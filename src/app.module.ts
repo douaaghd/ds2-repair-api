@@ -14,9 +14,9 @@ import { InterventionsModule } from './interventions/interventions.module';
       port: 3306,
       username: 'root',
       password: '', 
-      database: 'ds2_repair_db',
+      database: 'ds2_repair_db', //esem base 
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true,
+      synchronize: true, // Automatiquement yesnaa el tables fel base
     }),
     UsersModule,
     AuthModule,
