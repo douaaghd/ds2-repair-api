@@ -11,12 +11,12 @@ import {
 import { PartsService } from './parts.service';
 import { CreateSparePartDto } from './dto/create-sparepart.dto';
 import { UpdateSparePartDto } from './dto/update-sparepart.dto';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
 import { RolesGuard } from '../auth/roles.guard';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('parts')
-@UseGuards(JwtAuthGuard, RolesGuard) // 🔐 Auth obligatoire pour tout le module
+@UseGuards(JwtAuthGuard, RolesGuard) // auth lezma obligatoir dima
 export class PartsController {
   constructor(private readonly partsService: PartsService) {}
 

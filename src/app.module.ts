@@ -4,6 +4,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { PartsModule } from './parts/parts.module';
 import { DevicesModule } from './devices/devices.module';
+
 @Module({
   imports: [
     TypeOrmModule.forRoot({
